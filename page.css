@@ -2,6 +2,7 @@ html, body
 {
 	margin: 0px;
 	padding: 0px;
+	font-family: 'Montserrat', sans-serif;
 }
 
 .my-page
@@ -11,6 +12,9 @@ html, body
 
 .my-header
 {
+	font-size: 18pt;
+	text-align: center;
+	margin-bottom: 20vh;
 }
 
 .my-header-image
@@ -28,19 +32,63 @@ html, body
 	height: auto;
 }
 
-.my-content
-{
-	margin: 10px 20px;
-	padding: 0;
-	font-family: sans-serif;
-}
 
-.my-content h1
-{
+.my-content h1 {
+
 	font-size: 150%;
 }
 
 .my-content p, .my-content ul
 {
 	font-size: 120%;
+}
+
+.info-text {
+	text-align: center;
+	font-size: 16pt;
+	padding-top: 10vh;
+	color: #336600;
+
+}
+
+.card-rows {
+	margin-top: 6vh;
+	height: 12vh;
+}
+
+.bottom {
+	position: absolute;
+	bottom: 2vh;
+	margin-left: 4vw;
+	margin-right: 4vw;
+
+}
+
+.card{
+	height: 100%;
+	width: 24vw;
+	border: 1px solid #aaaaaa;
+	border-radius: 5px;
+	box-shadow: 2px 2px 3px #888888;
+}
+
+.pick {
+	position: absolute;
+	left: 10vw;
+	right:10vw;
+
+}
+
+.dropbox{
+	height: 100%;
+	width: 24vw;
+	border: 2px dashed #aaaaaa;
+	border-radius: 2px;
+}
+
+#div1 {
+  width: 350px;
+  height: 70px;
+  padding: 10px;
+  border: 1px solid #aaaaaa;
 }

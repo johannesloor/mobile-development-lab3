@@ -5,98 +5,180 @@
 	<meta name="viewport" content="width=device-width, user-scalable=yes,
 		initial-scale=1.0" />
 
-	<title>Relaxation iBeacons</title>
+	<title>Color hunt</title>
+	<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+	<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+	<!--<script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+	<script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script>-->
+	<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>
+	<script src="jquery.ui.touch-punch.min.js"></script>
+	<script>$('#widget').draggable();</script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 	<style>
 	@import 'page.css';
-	</style>
 
+	</style>
 	<script>
 	// Redirect console if running from Evothings Workbench.
-	if (window.hyper) { console.log = hyper.log }
+	//if (window.hyper) { console.log = hyper.log }
+	function allowDrop(ev) {
+		ev.preventDefault();
+	}
+
+	function drag(eve) {
+		eve.dataTransfer.setData("text", eve.target.id);
+	}
+
+	function drop(ev) {
+		ev.preventDefault();
+		var data = ev.dataTransfer.getData("text");
+		ev.target.appendChild(document.getElementById(data));
+	}
 	</script>
 </head>
 
 <body>
-	<div class="my-page" id="page-default">
-		<div class="my-header">
-			<img class="my-header-image" src="photos/photo-default.jpg" />
-			<img class="my-icon-back" src="icon-back.png" ontouchend="history.back()" />
-		</div>
-		<div class="my-content">
-			<h1>Relaxation iBeacons</h1>
-			<p>Please move within range of the Relaxation iBeacons.</p>
-		</div>
-	</div>
 
-	<div class="my-page" id="page-feet">
+	<ons-page class="my-page" id="test">
+		<div id="div1"></div>
+		<br>
+		<img id="drag1" src="photos/photo-face.jpg" width="336" height="69">
+	</ons-page>
+	<ons-page class="my-page" id="page-default">
 		<div class="my-header">
-			<img class="my-header-image" src="photos/photo-feet.jpg" />
-			<img class="my-icon-back" src="icon-back.png" ontouchend="history.back()" />
+			<h1>color match treasure hunt</h1>
 		</div>
-		<div class="my-content">
-			<h1>Feel Your Feet</h1>
-			<ul>
-				<li>Stand on your feet.</li>
-				<li>Experience the contact with the ground.</li>
-				<li>Feel into the soles of the feet.</li>
-				<li>Feel the knees.</li>
-				<li>The hips.</li>
-				<li>The spine.</li>
-				<li>Shoulders.</li>
-				<li>Neck.</li>
-				<li>Head.</li>
-				<li>Feel the connection between the top of the head and the feet.</li>
-			</ul>
-		</div>
-	</div>
+			<div class="info-text">start the treasure hunt by finding your first clue in the art hall</div>
+	</ons-page>
 
-	<div class="my-page" id="page-shoulders">
-		<div class="my-header">
-			<img class="my-header-image" src="photos/photo-shoulders-1.jpg" />
-			<img class="my-icon-back" src="icon-back.png" ontouchend="history.back()" />
-		</div>
-		<div class="my-content">
-			<h1>Feel Your Shoulders</h1>
-			<ul>
-				<li>Let your arms hang loose.</li>
-				<li>Become aware of the shoulders.</li>
-				<li>Slightly lift one shoulder and release it.</li>
-				<li>Let the shoulder come all the way down.</li>
-				<li>Lift the other shoulder and release it.</li>
-				<li>Alternate three more times on each side.</li>
-				<li>Experience the breath flowing in and out of the body.</li>
-			</ul>
-		</div>
-	</div>
+	<ons-page class="my-page" id="memory-page">
 
-	<div class="my-page" id="page-face">
+		<div class="my-content">
+			<div class="info-text">hmmm...<br>maybe i should memorize this</div>
+				<div class="row card-rows">
+					<div class="col-2"></div>
+					<div class="col-4">
+						<div class="card" style="background: blue"></div>
+					</div>
+					<div class="col-4">
+						<div class="card" style="background: red"></div>
+					</div>
+					<div class="col-2"></div>
+				</div>
+				<div class="row card-rows">
+					<div class="col-2"></div>
+					<div class="col-4">
+						<div class="card" style="background: red"></div>
+					</div>
+					<div class="col-4">
+						<div class="card" style="background: green"></div>
+					</div>
+					<div class="col-2"></div>
+				</div>
+				<div class="row card-rows">
+					<div class="col-2"></div>
+					<div class="col-4">
+						<div class="card" style="background: blue"></div>
+					</div>
+					<div class="col-4">
+						<div class="card" style="background: yellow"></div>
+					</div>
+					<div class="col-2"></div>
+				</div>
+					<div class="info-text">keep on searching...<br>try the music-room next!</div>
+		</div>
+	</ons-page>
+
+	<ons-page class="my-page" id="solution-page">
+
+
+		<div class="my-content">
+			<div class="info-text">ok...<br>now how were the colors organized?</div>
+			<div class="row card-rows">
+				<div class="col-2"></div>
+				<div class="col-4">
+					<div class="dropbox" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+				</div>
+				<div class="col-4">
+					<div class="dropbox" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+				</div>
+				<div class="col-2"></div>
+			</div>
+			<div class="row card-rows">
+				<div class="col-2"></div>
+				<div class="col-4">
+					<div class="dropbox" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+				</div>
+				<div class="col-4">
+					<div class="dropbox" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+				</div>
+				<div class="col-2"></div>
+			</div>
+			<div class="row card-rows">
+				<div class="col-2"></div>
+				<div class="col-4">
+					<div class="dropbox" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+				</div>
+				<div class="col-4">
+					<div class="dropbox" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+				</div>
+				<div class="col-2"></div>
+			</div>
+
+			<div class="row card-rows bottom">
+				<div class="col-2">
+					<div class="card pick" style="background: green"></div>
+				</div>
+				<div class="col-2">
+					<div class="card pick" style="background: red" draggable="true" ondragstart="drag(event)"></div>
+				</div>
+				<div class="col-2">
+					<div class="card pick" style="background: red" draggable="true" ondragstart="drag(event)"></div>
+				</div>
+				<div class="col-2">
+					<div class="card pick" style="background: blue" draggable="true" ondragstart="drag(event)"></div>
+				</div>
+				<div class="col-2">
+					<div class="card pick" style="background: blue" draggable="true" ondragstart="drag(event)"></div>
+				</div>
+				<div class="col-2">
+					<div class="card pick" style="background: yellow"></div>
+				</div>
+			</div>
+		</div>
+	</ons-page>
+
+	<ons-page class="my-page" id="treasure-page">
 		<div class="my-header">
-			<img class="my-header-image" src="photos/photo-face.jpg" />
-			<img class="my-icon-back" src="icon-back.png" ontouchend="history.back()" />
 		</div>
 		<div class="my-content">
-			<h1>Feel Your Face</h1>
-			<ul>
-				<li>Become aware of your face.</li>
-				<li>Feel the forehead.</li>
-				<li>The eyebrows.</li>
-				<li>Eyes.</li>
-				<li>Nose.</li>
-				<li>Nostrils.</li>
-				<li>Air flowing through the nostrils.</li>
-				<li>Cheeks.</li>
-				<li>Jaw.</li>
-				<li>Lips.</li>
-				<li>Tongue.</li>
-				<li>Whole of the head.</li>
-				<li>The space surrounding the head.</li>
-			</ul>
+
+			<div id="passwordField">
+				<div style="text-align: center; margin-top: 50px;">
+			    <p>
+			      <ons-input id="password" modifier="underbar" placeholder="Write the super secret password" float></ons-input>
+			    </p>
+			    <p style="margin-top: 30px;">
+			      <ons-button onclick="testPassword()">Find the treasure!</ons-button>
+			    </p>
+			  </div>
+			</div>
+
+			<div id="treasure" style="display: none">
+				<h1>Whoho! You found the treasure!!!</h1>
+				<p>It's feet...</p>
+				<img src="photos/photo-feet.jpg" style="width: 100%"/>
+			</div>
+
 		</div>
-	</div>
+	</ons-page>
 
 	<script src="lib/jquery.js"></script>
 	<script src="cordova.js"></script>
 	<script src="app.js"></script>
+
 </body>
 </html>

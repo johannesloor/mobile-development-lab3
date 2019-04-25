@@ -7,19 +7,19 @@ var app = {}
 app.beaconRegions =
 [
 	{
-		id: 'page-feet',
+		id: 'memory-page',
 		uuid:'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
 		major: 56506,
 		minor: 14941
 	},
 	{
-		id: 'page-shoulders',
+		id: 'solution-page',
 		uuid:'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
 		major: 22460,
 		minor: 60720
 	},
 	{
-		id: 'page-face',
+		id: 'treasure-page',
 		uuid:'B9407F30-F5F8-466E-AFF9-25556B57FE6D',
 		major: 64748,
 		minor: 20535
@@ -27,7 +27,7 @@ app.beaconRegions =
 ]
 
 // Currently displayed page.
-app.currentPage = 'page-default'
+app.currentPage = 'solution-page'
 
 app.initialize = function()
 {
