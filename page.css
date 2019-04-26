@@ -1,7 +1,7 @@
 html, body
 {
-	margin: 0px;
-	padding: 0px;
+	margin: 0;
+	padding: 0;
 	font-family: 'Montserrat', sans-serif;
 }
 
@@ -32,9 +32,7 @@ html, body
 	height: auto;
 }
 
-
 .my-content h1 {
-
 	font-size: 150%;
 }
 
@@ -46,14 +44,26 @@ html, body
 .info-text {
 	text-align: center;
 	font-size: 16pt;
-	padding-top: 10vh;
+	padding-top: 8vh;
 	color: #336600;
 
 }
 
 .card-rows {
-	margin-top: 6vh;
+	margin-top: 4vh;
 	height: 12vh;
+}
+
+.button-container {
+	justify-content: center;
+	margin-top: 4vh;
+}
+
+.confirm-button {
+	height: 6vh;
+	border-radius: 50%;
+	text-align: center;
+	box-shadow: 3px 6px #888888;
 }
 
 .bottom {
@@ -65,25 +75,77 @@ html, body
 }
 
 .card{
-	height: 100%;
-	width: 24vw;
+	height: 8vh;
+	width: 20vw;
 	border: 1px solid #aaaaaa;
 	border-radius: 5px;
 	box-shadow: 2px 2px 3px #888888;
+
 }
 
 .pick {
-	position: absolute;
-	left: 10vw;
-	right:10vw;
-
+	position:absolute;
+	margin: 0 0 0 0;
+	left: 40vw;
 }
 
-.dropbox{
-	height: 100%;
-	width: 24vw;
-	border: 2px dashed #aaaaaa;
-	border-radius: 2px;
+.dropbox {
+	background-color: #ccc;
+	border: dashed 4px transparent;
+	border-radius: 4px;
+	margin: 10px auto 30px;
+	padding: 10px;
+	width: 80%;
+	transition: background-color 0.3s;
+}
+
+.drop-active {
+	border-color: #aaa;
+}
+
+.drop-target {
+	background-color: #29e;
+	border-color: #fff;
+	border-style: solid;
+}
+
+.drag-drop {
+	display: inline-block;
+	min-width: 40px;
+	padding: 2em 0.5em;
+
+	color: #fff;
+	background-color: #29e;
+	border: solid 2px #fff;
+
+	-webkit-transform: translate(0px, 0px);
+					transform: translate(0px, 0px);
+
+	transition: background-color 0.3s;
+}
+
+.drag-drop.can-drop {
+	color: #000;
+	background-color: #4e4;
+}
+#dropbox1 {
+	height: 80px;
+}
+
+#dropbox2 {
+	height: 80px;
+}
+#dropbox3 {
+	height: 80px;
+}
+#dropbox4 {
+	height: 80px;
+}
+#dropbox5 {
+	height: 80px;
+}
+#dropbox6 {
+	height: 80px;
 }
 
 #div1 {

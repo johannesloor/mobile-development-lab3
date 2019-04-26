@@ -1,33 +1,245 @@
-<!DOCTYPE HTML>
-<html>
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
-  <script src="http://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, user-scalable=yes,
+    initial-scale=1.0" />
+    <title>Mobile Drag and Drop Demo</title>
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+  	<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+  	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  	<script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+  	<script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script>
+  	<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+  	<script src="http://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>
 
-  // Download this from the link above
-  <script src="jquery.ui.touch-punch.min.js"></script>
+  	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+    @import 'page.css';
 
-  <script>
-      $('#drag1').draggable();
-      $( "#div1" ).droppable({
-          drop: function( event, ui ) {
-            alert("dropped")
-          }
-        });
+    </style>
+    <style>
+      #drag-1, #drag-2 {
+        width: 25%;
+        height: 100%;
+        min-height: 6.5em;
+        margin: 10%;
+        background-color: #29e;
+        color: white;
+        border-radius: 0.75em;
+        padding: 4%;
+        user-select: none;
+        -webkit-transform: translate(0px, 0px);
+                transform: translate(0px, 0px);
+      }
 
-  </script>
-  <style>
-  @import 'page.css';
+      #dropbox1 {
+        height: 80px;
+      }
 
-  </style>
+      #dropbox2 {
+        height: 80px;
+      }
+      #dropbox3 {
+        height: 80px;
+      }
+      #dropbox4 {
+        height: 80px;
+      }
+      #dropbox5 {
+        height: 80px;
+      }
+      #dropbox6 {
+        height: 80px;
+      }
+
+      .dropbox {
+        background-color: #ccc;
+        border: dashed 4px transparent;
+        border-radius: 4px;
+        margin: 10px auto 30px;
+        padding: 10px;
+        width: 80%;
+        transition: background-color 0.3s;
+      }
+
+      .drop-active {
+        border-color: #aaa;
+      }
+
+      .drop-target {
+        background-color: #29e;
+        border-color: #fff;
+        border-style: solid;
+      }
+
+      .drag-drop {
+        display: inline-block;
+        min-width: 40px;
+        padding: 2em 0.5em;
+
+        color: #fff;
+        background-color: #29e;
+        border: solid 2px #fff;
+
+        -webkit-transform: translate(0px, 0px);
+                transform: translate(0px, 0px);
+
+        transition: background-color 0.3s;
+      }
+
+      .drag-drop.can-drop {
+        color: #000;
+        background-color: #4e4;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+    <script type="text/javascript">
+
+
+      interact('.draggable')
+    .draggable({
+      // enable inertial throwing
+      inertia: true,
+      // keep the element within the area of it's parent
+      modifiers: [
+        interact.modifiers.restrict({
+          restriction: "parent",
+          endOnly: true,
+          elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
+        }),
+      ],
+      // enable autoScroll
+      autoScroll: true,
+
+      // call this function on every dragmove event
+      onmove: dragMoveListener,
+      // call this function on every dragend event
+      onend: function (event) {
+        var textEl = event.target.querySelector('p');
+
+        textEl && (textEl.textContent =
+          'moved a distance of '
+          + (Math.sqrt(Math.pow(event.pageX - event.x0, 2) +
+                       Math.pow(event.pageY - event.y0, 2) | 0))
+              .toFixed(2) + 'px');
+      }
+    });
+
+    interact('.dropbox').dropzone({
+      // only accept elements matching this CSS selector
+      //accept: '#yes-drop',
+      // Require a 75% element overlap for a drop to be possible
+      overlap: 0.75,
+
+      // listen for drop related events:
+
+      ondropactivate: function (event) {
+        // add active dropzone feedback
+        event.target.classList.add('drop-active')
+      },
+      ondragenter: function (event) {
+        var draggableElement = event.relatedTarget;
+        var dropzoneElement = event.target;
+
+        // feedback the possibility of a drop
+        dropzoneElement.classList.add('drop-target')
+        draggableElement.classList.add('can-drop')
+        draggableElement.textContent = 'Dragged in'
+      },
+      ondragleave: function (event) {
+        // remove the drop feedback style
+        event.target.classList.remove('drop-target')
+        event.relatedTarget.classList.remove('can-drop')
+        event.relatedTarget.textContent = 'Dragged out'
+      },
+      ondrop: function (event) {
+        var targ = event.target.id;
+        var reltarg = event.relatedTarget.classList[1];
+        event.relatedTarget.textContent = reltarg
+        event.target.className = "dropbox " + reltarg;
+      },
+      ondropdeactivate: function (event) {
+        // remove active dropzone feedback
+        event.target.classList.remove('drop-active')
+        event.target.classList.remove('drop-target')
+      }
+    });
+
+    interact('.drag-drop')
+      .draggable({
+        inertia: true,
+        modifiers: [
+          interact.modifiers.restrict({
+            restriction: "parent",
+            endOnly: true,
+            elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
+          })
+        ],
+        autoScroll: true,
+        // dragMoveListener from the dragging demo above
+        onmove: dragMoveListener
+      });
+      function dragMoveListener (event) {
+      var target = event.target,
+          // keep the dragged position in the data-x/data-y attributes
+          x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+          y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+      // translate the element
+      target.style.webkitTransform =
+      target.style.transform =
+        'translate(' + x + 'px, ' + y + 'px)';
+
+      // update the posiion attributes
+      target.setAttribute('data-x', x);
+      target.setAttribute('data-y', y);
+    }
+    </script>
 </head>
 <body>
+  <!--
+  <div id="no-drop" class="drag-drop"> #no-drop </div>
 
-<p>Drag the W3Schools image into the rectangle:</p>
+  <div id="yes-drop" class="drag-drop"> #yes-drop </div>
 
-<div id="div1" ></div>
-<br>
-<img id="drag1" src="photos/photo-face.jpg" width="336" height="69">
+  <div id="drop" class="dropzone">
+    yellow
+   </div>
+   <div id="inner-dropzone" class="dropzone red">blue</div>
+   -->
+   <ons-page class="my-page" id="solution-page">
 
+
+ 		<div class="my-content">
+ 			<div class="info-text">ok...<br>now how were the colors organized?</div>
+      <div class="row card-rows">
+        <div class="col-2"></div>
+        <div class="col-4">
+          <div class="dropbox" id="dropbox1"></div>
+        </div>
+        <div class="col-4">
+          <div class="dropbox" id="dropbox2"></div>
+        </div>
+        <div class="col-2"></div>
+      </div>
+
+      <div class="button-container row">
+        <ons-button class="confirm-button" onclick="checkPuzzle()">try it!</ons-button>
+      </div>
+      <div class="drag-drop green" style="background: green"></div>
+      <div class="drag-drop red" style="background: red"></div>
+      <div class="drag-drop red" style="background: red"></div>
+      <div class="drag-drop blue" style="background: blue"></div>
+      <div class="drag-drop blue" style="background: blue"></div>
+      <div class="drag-drop yellow" style="background: yellow"></div>
+      <div id="yes-drop" class="drag-drop green" style="background: green"></div>
+
+ 	</ons-page>
+
+  <script src="lib/jquery.js"></script>
+  <script src="cordova.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

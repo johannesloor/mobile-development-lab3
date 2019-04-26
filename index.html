@@ -9,39 +9,162 @@
 	<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
 	<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-	<!--<script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
-	<script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script>-->
+	<script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+	<script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script>
 	<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 	<script src="http://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>
-	<script src="jquery.ui.touch-punch.min.js"></script>
-	<script>$('#widget').draggable();</script>
+
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 	<style>
 	@import 'page.css';
 
 	</style>
-	<script>
+	<script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+	<script type="text/javascript">
+
+
+		interact('.draggable')
+	.draggable({
+		// enable inertial throwing
+		inertia: true,
+		// keep the element within the area of it's parent
+		modifiers: [
+			interact.modifiers.restrict({
+				restriction: "parent",
+				endOnly: true,
+				elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
+			}),
+		],
+		// enable autoScroll
+		autoScroll: true,
+
+		// call this function on every dragmove event
+		onmove: dragMoveListener,
+		// call this function on every dragend event
+		onend: function (event) {
+			var textEl = event.target.querySelector('p');
+
+			textEl && (textEl.textContent =
+				'moved a distance of '
+				+ (Math.sqrt(Math.pow(event.pageX - event.x0, 2) +
+										 Math.pow(event.pageY - event.y0, 2) | 0))
+						.toFixed(2) + 'px');
+		}
+	});
+
+	interact('.dropbox').dropzone({
+		// only accept elements matching this CSS selector
+		//accept: '#yes-drop',
+		// Require a 75% element overlap for a drop to be possible
+		overlap: 0.5,
+
+		// listen for drop related events:
+
+		ondropactivate: function (event) {
+			// add active dropzone feedback
+			event.target.classList.add('drop-active')
+		},
+		ondragenter: function (event) {
+			var draggableElement = event.relatedTarget;
+			var dropzoneElement = event.target;
+
+			// feedback the possibility of a drop
+			dropzoneElement.classList.add('drop-target')
+			draggableElement.classList.add('can-drop')
+		},
+		ondragleave: function (event) {
+			// remove the drop feedback style
+			event.target.classList.remove('drop-target')
+			event.relatedTarget.classList.remove('can-drop')
+		},
+		ondrop: function (event) {
+			var targ = event.target.id;
+			var reltarg = event.relatedTarget.classList[1];
+			event.relatedTarget.textContent = "Placed"
+			event.target.className = "dropbox " + reltarg;
+		},
+		ondropdeactivate: function (event) {
+			// remove active dropzone feedback
+			event.target.classList.remove('drop-active')
+			event.target.classList.remove('drop-target')
+		}
+	});
+
+	interact('.drag-drop')
+		.draggable({
+			inertia: true,
+			modifiers: [
+				interact.modifiers.restrict({
+					restriction: "parent",
+					endOnly: true,
+					elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
+				})
+			],
+			autoScroll: true,
+			// dragMoveListener from the dragging demo above
+			onmove: dragMoveListener
+		});
+		function dragMoveListener (event) {
+		var target = event.target,
+				// keep the dragged position in the data-x/data-y attributes
+				x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+				y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+		// translate the element
+		target.style.webkitTransform =
+		target.style.transform =
+			'translate(' + x + 'px, ' + y + 'px)';
+
+		// update the posiion attributes
+		target.setAttribute('data-x', x);
+		target.setAttribute('data-y', y);
+	}
+
 	// Redirect console if running from Evothings Workbench.
 	//if (window.hyper) { console.log = hyper.log }
-	function allowDrop(ev) {
-		ev.preventDefault();
+
+
+	function checkPuzzle () {
+		let dropbox1 = document.getElementById('dropbox1')
+		let dropbox2 = document.getElementById('dropbox2')
+		let dropbox3 = document.getElementById('dropbox3')
+		let dropbox4 = document.getElementById('dropbox4')
+		let dropbox5 = document.getElementById('dropbox5')
+		let dropbox6 = document.getElementById('dropbox6')
+
+		if (dropbox1.className == "dropbox blue" &&
+				dropbox2.className == "dropbox red" &&
+				dropbox3.className == "dropbox red" &&
+				dropbox4.className == "dropbox green" &&
+				dropbox5.className == "dropbox blue" &&
+				dropbox6.className == "dropbox yellow") {
+
+					document.getElementById('puzzle').style.display = "none"
+	 				document.getElementById('correctSolution').style.display = "block"
+			}
+		else {
+			ons.notification.alert({message: "your memory seems to be a bit off..<br> try again!", title: "hmmm..."});
+		}
 	}
 
-	function drag(eve) {
-		eve.dataTransfer.setData("text", eve.target.id);
-	}
 
-	function drop(ev) {
-		ev.preventDefault();
-		var data = ev.dataTransfer.getData("text");
-		ev.target.appendChild(document.getElementById(data));
-	}
+
+	let testPassword = function() {
+	  let password = document.getElementById('password').value;
+
+	  if (password === 'bacon' || password === 'Bacon') {
+	    document.getElementById('passwordField').style.display = "none"
+			document.getElementById('treasure').style.display = "block"
+
+	  } else {
+			ons.notification.alert({message: "Nope.. Try again!", title: "Ooops"});
+	  }
+	};
 	</script>
 </head>
 
 <body>
-
 	<ons-page class="my-page" id="test">
 		<div id="div1"></div>
 		<br>
@@ -56,7 +179,7 @@
 
 	<ons-page class="my-page" id="memory-page">
 
-		<div class="my-content">
+		<div class="my-content container-fluid">
 			<div class="info-text">hmmm...<br>maybe i should memorize this</div>
 				<div class="row card-rows">
 					<div class="col-2"></div>
@@ -93,84 +216,104 @@
 	</ons-page>
 
 	<ons-page class="my-page" id="solution-page">
-
-
-		<div class="my-content">
-			<div class="info-text">ok...<br>now how were the colors organized?</div>
-			<div class="row card-rows">
-				<div class="col-2"></div>
-				<div class="col-4">
-					<div class="dropbox" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+		<div class="my-content container-fluid">
+			<div id="correctSolution" class="info-text" style="display:none;">
+				<h3>the password is.....</h3><br><h1>bacon</h1>
+				<div class="info-text">
+					the treasure is buried in the hall of death.. <br> check it out!
 				</div>
-				<div class="col-4">
-					<div class="dropbox" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-				</div>
-				<div class="col-2"></div>
-			</div>
-			<div class="row card-rows">
-				<div class="col-2"></div>
-				<div class="col-4">
-					<div class="dropbox" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-				</div>
-				<div class="col-4">
-					<div class="dropbox" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-				</div>
-				<div class="col-2"></div>
-			</div>
-			<div class="row card-rows">
-				<div class="col-2"></div>
-				<div class="col-4">
-					<div class="dropbox" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-				</div>
-				<div class="col-4">
-					<div class="dropbox" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-				</div>
-				<div class="col-2"></div>
 			</div>
 
-			<div class="row card-rows bottom">
-				<div class="col-2">
-					<div class="card pick" style="background: green"></div>
+			<div id="puzzle">
+
+				<div class="info-text">ok...<br>now how were the colors organized?</div>
+				<div class="row card-rows">
+					<div class="col-2"></div>
+					<div class="col-4">
+						<div class="dropbox" id="dropbox1"></div>
+					</div>
+					<div class="col-4">
+						<div class="dropbox" id="dropbox2"></div>
+					</div>
+					<div class="col-2"></div>
 				</div>
-				<div class="col-2">
-					<div class="card pick" style="background: red" draggable="true" ondragstart="drag(event)"></div>
+				<div class="row card-rows">
+					<div class="col-2"></div>
+					<div class="col-4">
+						<div class="dropbox" id="dropbox3"></div>
+					</div>
+					<div class="col-4">
+						<div class="dropbox" id="dropbox4"></div>
+					</div>
+					<div class="col-2"></div>
 				</div>
-				<div class="col-2">
-					<div class="card pick" style="background: red" draggable="true" ondragstart="drag(event)"></div>
+				<div class="row card-rows">
+					<div class="col-2"></div>
+					<div class="col-4">
+						<div class="dropbox" id="dropbox5"></div>
+					</div>
+					<div class="col-4">
+						<div class="dropbox" id="dropbox6"></div>
+					</div>
+					<div class="col-2"></div>
 				</div>
-				<div class="col-2">
-					<div class="card pick" style="background: blue" draggable="true" ondragstart="drag(event)"></div>
+
+				<div class="button-container row">
+					<ons-button class="confirm-button" onclick="checkPuzzle()">try it!</ons-button>
 				</div>
-				<div class="col-2">
-					<div class="card pick" style="background: blue" draggable="true" ondragstart="drag(event)"></div>
-				</div>
-				<div class="col-2">
-					<div class="card pick" style="background: yellow"></div>
+
+				<div class="drag-drop green card pick" style="background: green"></div>
+				<div class="drag-drop red card pick" style="background: red"></div>
+				<div class="drag-drop red card pick" style="background: red"></div>
+				<div class="drag-drop blue card pick" style="background: blue"></div>
+				<div class="drag-drop blue card pick" style="background: blue"></div>
+				<div class="drag-drop yellow card pick" style="background: yellow"></div>
+				<!--
+				<div class="row card-rows bottom">
+					<div class="col-2">
+						<div class="drag-drop green" style="background: green"></div>
+					</div>
+					<div class="col-2">
+						<div class="drag-drop red" style="background: red"></div>
+					</div>
+					<div class="col-2">
+						<div class="drag-drop red" style="background: red"></div>
+					</div>
+					<div class="col-2">
+						<div class="drag-drop blue" style="background: blue"></div>
+					</div>
+					<div class="col-2">
+						<div class="drag-drop blue" style="background: blue"></div>
+					</div>
+					<div class="col-2">
+						<div class="drag-drop yellow" style="background: yellow"></div>
+					</div>
 				</div>
 			</div>
+		-->
 		</div>
+
+
 	</ons-page>
 
 	<ons-page class="my-page" id="treasure-page">
-		<div class="my-header">
-		</div>
-		<div class="my-content">
+		<div class="my-content container-fluid">
 
 			<div id="passwordField">
-				<div style="text-align: center; margin-top: 50px;">
+				<div style="text-align: center; margin-top: 30vh;">
 			    <p>
-			      <ons-input id="password" modifier="underbar" placeholder="Write the super secret password" float></ons-input>
+			      <ons-input id="password" modifier="underbar" placeholder="Write the super secret password" style="width: 65%;"></ons-input>
 			    </p>
-			    <p style="margin-top: 30px;">
-			      <ons-button onclick="testPassword()">Find the treasure!</ons-button>
+			    <p style="margin-top: 80px;">
+			      <ons-button onclick="testPassword()" style="padding: 30px;">Find the treasure!</ons-button>
 			    </p>
 			  </div>
 			</div>
 
-			<div id="treasure" style="display: none">
-				<h1>Whoho! You found the treasure!!!</h1>
-				<p>It's feet...</p>
-				<img src="photos/photo-feet.jpg" style="width: 100%"/>
+			<div id="treasure" style="display: none; text-align: center; margin-top: 10vh;">
+				<h1>You found the treasure!!!</h1>
+				<p>It's you...</p>
+				<iframe src="https://giphy.com/embed/l0IynKSD9UkNZ88a4" width="100%" height="320" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
 			</div>
 
 		</div>
@@ -179,6 +322,5 @@
 	<script src="lib/jquery.js"></script>
 	<script src="cordova.js"></script>
 	<script src="app.js"></script>
-
 </body>
 </html>
