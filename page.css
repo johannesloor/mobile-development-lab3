@@ -109,7 +109,7 @@ html, body
 	border-style: solid;
 }
 
-.drag-drop {
+.drag-drop, .drag-drop * {
 	display: inline-block;
 	min-width: 40px;
 	padding: 2em 0.5em;
@@ -122,12 +122,21 @@ html, body
 					transform: translate(0px, 0px);
 
 	transition: background-color 0.3s;
+	-ms-touch-action: none;
+	touch-action: none;
 }
 
 .drag-drop.can-drop {
 	color: #000;
 	background-color: #4e4;
 }
+
+.dragging-container,
+.dragging-container * {
+  -ms-touch-action: none;
+  touch-action: none;
+}
+
 #dropbox1 {
 	height: 80px;
 }

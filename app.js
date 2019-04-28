@@ -27,7 +27,7 @@ app.beaconRegions =
 ]
 
 // Currently displayed page.
-app.currentPage = 'page-default'
+app.currentPage = 'solution-page'
 
 app.initialize = function()
 {

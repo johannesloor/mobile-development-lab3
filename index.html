@@ -75,6 +75,7 @@
 		},
 		ondragleave: function (event) {
 			// remove the drop feedback style
+			event.relatedTarget.textContent = "";
 			event.target.classList.remove('drop-target')
 			event.relatedTarget.classList.remove('can-drop')
 		},
@@ -122,7 +123,8 @@
 	}
 
 	// Redirect console if running from Evothings Workbench.
-	//if (window.hyper) { console.log = hyper.log }
+
+	if (window.hyper) { console.log = hyper.log }
 
 
 	function checkPuzzle () {
