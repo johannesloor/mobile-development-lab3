@@ -27,7 +27,10 @@ app.beaconRegions =
 ]
 
 // Currently displayed page.
-app.currentPage = 'solution-page'
+//app.currentPage = 'page-default'
+//app.currentPage = 'memory-page'
+//app.currentPage = 'solution-page'
+app.currentPage = 'treasure-page'
 
 app.initialize = function()
 {
@@ -36,6 +39,7 @@ app.initialize = function()
 		app.onDeviceReady,
 		false)
 	app.gotoPage(app.currentPage)
+
 }
 
 // Called when Cordova are plugins initialised,

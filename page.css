@@ -4,7 +4,12 @@ html, body
 	padding: 0;
 	font-family: 'Montserrat', sans-serif;
 }
-
+ons-input{
+	color: white;
+}
+.background{
+	background-color: black;
+}
 .my-page
 {
 	display: none;
@@ -46,6 +51,7 @@ html, body
 	font-size: 16pt;
 	padding-top: 8vh;
 	color: #336600;
+	color: white;
 
 }
 
@@ -60,6 +66,7 @@ html, body
 }
 
 .confirm-button {
+	margin: 3vh;
 	height: 6vh;
 	border-radius: 50%;
 	text-align: center;

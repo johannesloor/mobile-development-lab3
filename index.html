@@ -173,16 +173,17 @@
 		<img id="drag1" src="photos/photo-face.jpg" width="336" height="69">
 	</ons-page>
 	<ons-page class="my-page" id="page-default">
+		<div class="background"></div>
 		<div class="my-header">
-			<h1>color match treasure hunt</h1>
+			<h1 class="info-text">color match treasure hunt</h1>
 		</div>
 			<div class="info-text">start the treasure hunt by finding your first clue in the art hall</div>
 	</ons-page>
 
 	<ons-page class="my-page" id="memory-page">
-
+		<div class="background"></div>
 		<div class="my-content container-fluid">
-			<div class="info-text">hmmm...<br>maybe i should memorize this</div>
+			<div class="info-text">hmmm...<br>maybe I should memorize this</div>
 				<div class="row card-rows">
 					<div class="col-2"></div>
 					<div class="col-4">
@@ -218,6 +219,7 @@
 	</ons-page>
 
 	<ons-page class="my-page" id="solution-page">
+		<div class="background"></div>
 		<div class="my-content container-fluid">
 			<div id="correctSolution" class="info-text" style="display:none;">
 				<h3>the password is.....</h3><br><h1>bacon</h1>
@@ -227,7 +229,6 @@
 			</div>
 
 			<div id="puzzle">
-
 				<div class="info-text">ok...<br>now how were the colors organized?</div>
 				<div class="row card-rows">
 					<div class="col-2"></div>
@@ -291,28 +292,27 @@
 						<div class="drag-drop yellow" style="background: yellow"></div>
 					</div>
 				</div>
+				-->
 			</div>
-		-->
 		</div>
-
-
 	</ons-page>
 
 	<ons-page class="my-page" id="treasure-page">
+		<div class="background"></div>
 		<div class="my-content container-fluid">
 
 			<div id="passwordField">
 				<div style="text-align: center; margin-top: 30vh;">
-			    <p>
-			      <ons-input id="password" modifier="underbar" placeholder="Write the super secret password" style="width: 65%;"></ons-input>
-			    </p>
-			    <p style="margin-top: 80px;">
-			      <ons-button onclick="testPassword()" style="padding: 30px;">Find the treasure!</ons-button>
-			    </p>
-			  </div>
+					<p style="color: white">
+						<input id="password" placeholder="Write the super secret password" style="width: 95%;"></input>
+					</p>
+					<p style="margin-top: 80px;">
+						<ons-button onclick="testPassword()" style="padding: 20px;">Find the treasure!</ons-button>
+					</p>
+				</div>
 			</div>
 
-			<div id="treasure" style="display: none; text-align: center; margin-top: 10vh;">
+			<div id="treasure" style="display: none; text-align: center; margin-top: 10vh; color: white;">
 				<h1>You found the treasure!!!</h1>
 				<p>It's you...</p>
 				<iframe src="https://giphy.com/embed/l0IynKSD9UkNZ88a4" width="100%" height="320" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
