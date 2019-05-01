@@ -27,10 +27,10 @@ app.beaconRegions =
 ]
 
 // Currently displayed page.
-//app.currentPage = 'page-default'
+app.currentPage = 'page-default'
 //app.currentPage = 'memory-page'
 //app.currentPage = 'solution-page'
-app.currentPage = 'treasure-page'
+//app.currentPage = 'treasure-page'
 
 app.initialize = function()
 {
